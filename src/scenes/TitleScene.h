@@ -12,12 +12,14 @@ class TitleScene : public Scene {
 public:
     explicit TitleScene(GameContext& ctx);
 
+    void beginFrame() override;
     void handleEvent(const SDL_Event& event) override;
     void update(float dt) override;
     void render(SDL_Renderer* renderer) override;
 
-private:
     enum class MenuItem { Start, Leaderboard, Quit, COUNT };
+
+private:
 
     void drawPanel(SDL_Renderer* r, float x, float y, float w, float h,
                    SDL_Color fill, SDL_Color border) const;

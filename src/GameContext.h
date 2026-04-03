@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Camera.h"
 
 // Forward declare so scenes don't need the full Leaderboard header
 class Leaderboard;
@@ -22,4 +23,7 @@ struct GameContext {
 
     // ---- Shared systems -------------------------------------------------
     Leaderboard* leaderboard = nullptr;   // owned by Game, non-owning ptr here
+
+    // ---- 3-D camera loaded from booth.glb -------------------------------
+    Camera camera;   // valid=false until GLBLoader succeeds
 };

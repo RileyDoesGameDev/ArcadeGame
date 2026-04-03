@@ -12,6 +12,7 @@ class LeaderboardScene : public Scene {
 public:
     explicit LeaderboardScene(GameContext& ctx);
 
+    void beginFrame() override;
     void handleEvent(const SDL_Event& event) override;
     void update(float dt) override;
     void render(SDL_Renderer* renderer) override;

@@ -15,13 +15,16 @@ LeaderboardScene::LeaderboardScene(GameContext& ctx)
     : m_ctx(ctx) {}
 
 // ---------------------------------------------------------------------------
+void LeaderboardScene::beginFrame() {
+    m_gun.beginFrame();
+}
+
 void LeaderboardScene::handleEvent(const SDL_Event& event) {
     m_gun.handleEvent(event);
 }
 
 // ---------------------------------------------------------------------------
 void LeaderboardScene::update(float dt) {
-    m_gun.beginFrame();
     m_rowAnim += dt;  // used to animate slide-in
 
     if (m_gun.fired()) {

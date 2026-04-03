@@ -22,6 +22,9 @@ class Scene {
 public:
     virtual ~Scene() = default;
 
+    // Called once per frame BEFORE events are polled (resets per-frame input state)
+    virtual void beginFrame() {}
+
     // Called once per SDL event (called inside the event poll loop)
     virtual void handleEvent(const SDL_Event& event) = 0;
 

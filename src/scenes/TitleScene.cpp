@@ -25,13 +25,16 @@ TitleScene::TitleScene(GameContext& ctx)
 {}
 
 // ---------------------------------------------------------------------------
+void TitleScene::beginFrame() {
+    m_gun.beginFrame();
+}
+
 void TitleScene::handleEvent(const SDL_Event& event) {
     m_gun.handleEvent(event);
 }
 
 // ---------------------------------------------------------------------------
 void TitleScene::update(float dt) {
-    m_gun.beginFrame();
 
     // Animate title duck
     m_duckX += m_duckSpd * dt;

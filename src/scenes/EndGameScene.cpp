@@ -21,13 +21,16 @@ EndGameScene::EndGameScene(GameContext& ctx)
 }
 
 // ---------------------------------------------------------------------------
+void EndGameScene::beginFrame() {
+    m_gun.beginFrame();
+}
+
 void EndGameScene::handleEvent(const SDL_Event& event) {
     m_gun.handleEvent(event);
 }
 
 // ---------------------------------------------------------------------------
 void EndGameScene::update(float dt) {
-    m_gun.beginFrame();
     m_blinkTimer += dt;
 
     if (m_gun.fired()) {

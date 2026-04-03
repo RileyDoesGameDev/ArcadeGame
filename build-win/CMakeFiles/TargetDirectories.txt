@@ -1,0 +1,3 @@
+C:/Users/rfoster/Documents/Claude/Projects/Retro Game Clown Hunt/build-win/CMakeFiles/retro_arcade.dir
+C:/Users/rfoster/Documents/Claude/Projects/Retro Game Clown Hunt/build-win/CMakeFiles/ALL_BUILD.dir
+C:/Users/rfoster/Documents/Claude/Projects/Retro Game Clown Hunt/build-win/CMakeFiles/ZERO_CHECK.dir

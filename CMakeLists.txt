@@ -40,11 +40,31 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     target_compile_options(retro_arcade PRIVATE -O2 -march=armv8-a)
 endif()
 
-# Copy assets to build dir if the folder exists
-if(EXISTS "${CMAKE_SOURCE_DIR}/assets")
+# Copy assets next to the executable after every build.
+# Handles both "assets" and "Assets" folder names (Windows is case-insensitive
+# but CMake's EXISTS is not always, so we check both).
+if(EXISTS "${CMAKE_SOURCE_DIR}/Assets")
+    set(ASSETS_SRC "${CMAKE_SOURCE_DIR}/Assets")
+elseif(EXISTS "${CMAKE_SOURCE_DIR}/assets")
+    set(ASSETS_SRC "${CMAKE_SOURCE_DIR}/assets")
+endif()
+
+if(DEFINED ASSETS_SRC)
     add_custom_command(TARGET retro_arcade POST_BUILD
+        # Copy next to the .exe (Debug/ or Release/) — used when running from there
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-            "${CMAKE_SOURCE_DIR}/assets"
+            "${ASSETS_SRC}"
             "$<TARGET_FILE_DIR:retro_arcade>/assets"
+        # Also copy to the build root — used when running Debug\retro_arcade.exe from build-win\
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${ASSETS_SRC}"
+            "${CMAKE_BINARY_DIR}/assets"
+        COMMENT "Copying assets to output directory"
     )
 endif()
+
+# Set the Visual Studio debugger working directory to the output folder so
+# assets/booth.glb is found when launching from the IDE or build-win\.
+set_target_properties(retro_arcade PROPERTIES
+    VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:retro_arcade>"
+)

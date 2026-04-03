@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "GLBLoader.h"
 #include "scenes/TitleScene.h"
 #include "scenes/GameScene.h"
 #include "scenes/EndGameScene.h"
@@ -50,6 +51,12 @@ bool Game::init(const char* title, int width, int height, bool fullscreen) {
     // Load saved scores
     m_leaderboard.load();
 
+    // Load camera from the 3-D booth model
+    m_ctx.camera = GLBLoader::loadCamera("assets/booth.glb");
+    if (!m_ctx.camera.valid)
+        std::cerr << "[Game] Warning: could not load camera from assets/booth.glb"
+                     " – GameScene will use a default camera.\n";
+
     // Start on the Title screen
     m_scene   = createScene(SceneID::Title);
     m_running = true;
@@ -68,6 +75,7 @@ void Game::run() {
         // Cap dt so a stalled frame doesn't cause wild physics jumps
         const float safeDt = (dt > 0.1f) ? 0.1f : dt;
 
+        if (m_scene) m_scene->beginFrame(); // reset input state before polling
         processEvents();
         update(safeDt);
         render();
